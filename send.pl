@@ -27,7 +27,7 @@ $fee &&= 0.00010_000;
 sub capture;
 
 $in &&= path($in)->slurp;
-# Copy selected input lines here from /tmp/utxo.txt if an input file is't
+# Copy selected input lines here from utxo.txt if an input file is't
 # specified.
 # 67 inputs usually fits within 10KB.
 # When adding an input from an address not controlled by the wallet, append
