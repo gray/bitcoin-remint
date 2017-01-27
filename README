@@ -1,0 +1,12 @@
+Utility scripts to merge small inputs:
+
+    list.pl  - lists the available unspent inputs from the wallet
+    xlist.pl - lists the available unspent inputs from keys not in the wallet
+    pick.pl  - shows the optimal set of inputs to reach the target value
+    send.pl  - constructs a transaction and sends it
+
+Dependencies:
+
+    bitcoind
+    perl >= 5.10
+    perl modules listed in cpanfile
