@@ -32,7 +32,7 @@ say STDERR 'total inputs: ', 0+@in;
 
 my $min_sum = ~0;
 SET_SIZE:
-for my $n (reverse 1 .. $max_n) {
+for my $n (reverse $min_n .. $max_n) {
     my $it = combinations([ 0 .. $#in ], $n);
     say STDERR "checking sets of $n inputs";
     while (my $c = $it->next) {
