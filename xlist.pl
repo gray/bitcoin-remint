@@ -44,13 +44,12 @@ sub wif_to_addr {
     my $bytes = pack 'H*', decode_base58($wif, 'bitcoin')->Rmpz_get_str(16);
     return unless "\x80" eq unpack 'a', $bytes;
     return unless substr $bytes, -4, ,4, '' eq sha256 sha256 $bytes;
-    my $compressed = 34 == length($bytes) ? 1 : 0;
     my $nid = 714;  # secp256k1
     my $ecgroup = Crypt::OpenSSL::EC::EC_GROUP::new_by_curve_name($nid);
     my $eckey = Crypt::OpenSSL::EC::EC_POINT::new($ecgroup);
     my $bn = Crypt::OpenSSL::Bignum->new_from_bin(unpack 'xa32', $bytes);
     Crypt::OpenSSL::EC::EC_POINT::mul($ecgroup, $eckey, $bn, \0, \0, \0);
-    my $form = $compressed
+    my $form = 34 == length($bytes)
         ? &Crypt::OpenSSL::EC::POINT_CONVERSION_COMPRESSED
         : &Crypt::OpenSSL::EC::POINT_CONVERSION_UNCOMPRESSED;
     $bytes = Crypt::OpenSSL::EC::EC_POINT::point2oct($ecgroup, $eckey, $form, \0);
@@ -58,5 +57,5 @@ sub wif_to_addr {
     my $checksum = unpack 'a4', sha256 sha256 $hash;
     my $addr = unpack 'H*', "$hash$checksum";
 
-    return '1' . encode_base58("0x$addr", 'bitcoin');
+    return 1 . encode_base58("0x$addr", 'bitcoin');
 }
