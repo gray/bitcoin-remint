@@ -99,7 +99,7 @@ unless ($res->{complete}) {
 my $hex = $res->{hex};
 my $len = length(pack 'H*', $hex);
 say "bytes: $len";
-die "tx too large- $len > 10,000 bytes" if 1e4 <= $len;
+# die "tx too large- $len > 10,000 bytes" if 1e4 <= $len;
 
 # 0.12 disabled estimatepriority.
 my $min_priority = 1e7;
@@ -134,7 +134,7 @@ sub capture {
     # Copy @_ so it is available to the command.
     my @cmd = @_;
     # XXX: Hackish implementation to pass STDIN data as last argument.
-    my $in = pop @cmd if ref $cmd[-1];
+    my $in; $in = pop @cmd if ref $cmd[-1];
     my ($out, $err) = Capture::Tiny::capture {
         open my $pipe, '|-', @cmd or return 0 + $!;
         print $pipe $$in if $in;
