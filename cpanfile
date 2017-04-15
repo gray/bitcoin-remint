@@ -14,6 +14,7 @@ requires 'JSON::MaybeXS';
 requires 'JSON::SL';
 requires 'List::Util';
 requires 'Path::Tiny';
+requires 'Regexp::Common';
 requires 'Sort::Key';
 requires 'Term::ReadKey';
 requires 'URI::Escape';
