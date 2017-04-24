@@ -21,7 +21,7 @@ while (my $wif = shift @ARGV) {
     die "$res->{content}\n$res->{status} $res->{reason}\n$url"
         unless $res->{success};
 
-    my $data = eval { decode_utf8 $res->{content} };
+    my $data = eval { decode_json $res->{content} };
 
     for my $tx (@{ $data->{data}{txs} // [] }) {
         my $btc  = $tx->{value};
